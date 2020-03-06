@@ -42,4 +42,21 @@ class ODBCConnection extends Connection
             return new $processor;
         return new ODBCProcessor;
     }
+    
+    public function beginTransaction()
+    {
+        odbc_autocommit($this->getPdo()->getConnection(), FALSE);
+    }
+    
+    public function rollBack($toLevel=null)
+    {
+        odbc_rollback($this->getPdo()->getConnection());
+        odbc_autocommit($this->getPdo()->getConnection(), TRUE);
+    }
+    
+    public function commit()
+    {
+        odbc_commit($this->getPdo()->getConnection());
+        odbc_autocommit($this->getPdo()->getConnection(), TRUE);
+    }
 }

@@ -26,11 +26,8 @@ class ODBCConnector extends Connector implements ConnectorInterface
     public function connect(array $config)
     {
         $options = $this->getOptions($config);
-
-        $dsn = array_get($config, 'dsn');
-
+        $dsn = isset($config["dsn"]) ? $config["dsn"] : "";
         $connection = $this->createConnection($dsn, $config, $options);
-
         return $connection;
     }
 

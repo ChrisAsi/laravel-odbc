@@ -52,8 +52,9 @@ class ODBCPdoStatement extends PDOStatement
 
     public function execute($ignore = null)
     {
-        odbc_execute($this->statement, $this->params);
+        $res = odbc_execute($this->statement, $this->params);
         $this->params = [];
+        return $res;
     }
 
     public function fetchAll($how = NULL, $class_name = NULL, $ctor_args = NULL)
@@ -67,6 +68,6 @@ class ODBCPdoStatement extends PDOStatement
 
     public function fetch($option = null, $ignore = null, $ignore2 = null)
     {
-        return odbc_fetch_array($this->statement);
+        return odbc_fetch_object($this->statement);
     }
 }
